@@ -6,21 +6,24 @@ public class Person : Entity
     private string firstName = string.Empty;
     private string lastName = string.Empty;
     private Address? address;
+    private readonly Guid id;
 
     private Person()
     {
     }
 
-    public Person(string firstName, string lastName, Address? address = null)
+    public Person(Guid id, string firstName, string lastName, Address? address = null)
     {
         SetName(firstName, lastName);
         SetAddress(address);
+        this.id = id;
     }
 
     public string FirstName => firstName;
     public string LastName => lastName;
     public string FullName => fullName;
     public Address? Address => address;
+    public Guid Id => id;
 
     public void Rename(string firstName, string lastName)
     {
