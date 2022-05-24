@@ -4,9 +4,9 @@ namespace Crm.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class IndividualsController : ControllerBase
+    public class PeopleController : ControllerBase
     {
-        public IndividualsController()
+        public PeopleController()
         {
         }
     }
