@@ -1,6 +1,6 @@
 ﻿namespace Crm.Domain;
 
-public record ValueObject
+public record ValueObject : AssertionConcernRecord
 {
 
 }

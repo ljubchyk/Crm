@@ -13,16 +13,16 @@ public record Address : ValueObject
 
     }
 
-    public Address(string country, string city, string postalCode, string line1, string? line2 = null)
+    public Address(string country, string city, string postalCode, string line1, string line2 = null)
     {
-        country.AssertNotEmpty(nameof(country));
-        city.AssertNotEmpty(nameof(city));
-        postalCode.AssertNotEmpty(nameof(postalCode));
-        line1.AssertNotEmpty(nameof(line1));
+        AssertNotEmpty(country, nameof(country));
+        AssertNotEmpty(city, nameof(city));
+        AssertNotEmpty(postalCode, nameof(postalCode));
+        AssertNotEmpty(line1, nameof(line1));
 
         if (line2 != null)
         {
-            line2.AssertNotEmpty(nameof(line2));
+            AssertNotEmpty(line2, nameof(line2));
         }
 
         this.country = country;
@@ -36,6 +36,5 @@ public record Address : ValueObject
     public string City => city; 
     public string PostalCode => postalCode;
     public string Line1 => line1;
-    public string? Line2 => line2;
-
+    public string Line2 => line2;
 }

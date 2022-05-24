@@ -1,6 +1,6 @@
 ﻿namespace Crm.Domain;
 
-public abstract class Entity : AssertionConcern
+public abstract class Entity : AssertionConcernClass
 {
     public Entity()
     {

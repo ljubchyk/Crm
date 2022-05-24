@@ -2,17 +2,17 @@
 
 public class Person : Entity
 {
-    private string fullName = string.Empty;
-    private string firstName = string.Empty;
-    private string lastName = string.Empty;
-    private Address? address;
+    private string fullName;
+    private string firstName;
+    private string lastName;
+    private Address address;
     private readonly Guid id;
 
     private Person()
     {
     }
 
-    public Person(Guid id, string firstName, string lastName, Address? address = null)
+    public Person(Guid id, string firstName, string lastName, Address address = null)
     {
         SetName(firstName, lastName);
         SetAddress(address);
@@ -22,7 +22,7 @@ public class Person : Entity
     public string FirstName => firstName;
     public string LastName => lastName;
     public string FullName => fullName;
-    public Address? Address => address;
+    public Address Address => address;
     public Guid Id => id;
 
     public void Rename(string firstName, string lastName)
@@ -30,7 +30,7 @@ public class Person : Entity
         SetName(firstName, lastName);
     }
 
-    public void Relocate(Address? address)
+    public void Relocate(Address address)
     {
         SetAddress(address);
     }
@@ -46,7 +46,7 @@ public class Person : Entity
         fullName = $"{firstName} {lastName}";
     }
 
-    private void SetAddress(Address? address)
+    private void SetAddress(Address address)
     {
         this.address = address;
     }
