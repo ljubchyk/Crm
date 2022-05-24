@@ -31,6 +31,8 @@ public class Company : Entity
             throw new Exception("Sum of Owners shares must be equal 100.");
         }
 
+        owners?.Clear();
+        owners ??= new HashSet<Owner>();
         foreach (var arg in args)
         {
             owners.Add(
