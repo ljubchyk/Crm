@@ -13,6 +13,7 @@ public class Company : Entity
 
         this.id = id;
         this.name = name;
+        owners = new HashSet<Owner>();
     }
 
     public Guid Id => id;
@@ -31,8 +32,7 @@ public class Company : Entity
             throw new Exception("Sum of Owners shares must be equal 100.");
         }
 
-        owners?.Clear();
-        owners ??= new HashSet<Owner>();
+        owners.Clear();
         foreach (var arg in args)
         {
             owners.Add(
