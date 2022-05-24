@@ -9,5 +9,11 @@ namespace Crm.Controllers
         public CompaniesController()
         {
         }
+
+        //[HttpGet]
+        //public IActionResult Get()
+        //{
+
+        //}
     }
 }
