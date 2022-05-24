@@ -6,6 +6,7 @@ public class Owner : Entity
     private readonly Guid personId;
     private readonly string name;
     private readonly double share;
+    private readonly bool isBeneficial;
 
     public Owner(Guid companyId, Guid personId, string name, double share)
     {
@@ -18,12 +19,14 @@ public class Owner : Entity
         this.personId = personId;
         this.name = name;
         this.share = share;
+        isBeneficial = share >= 25;
     }
 
     public Guid CompanyId => companyId;
     public Guid PersonId => personId;
     public string Name => name;
     public double Share => share;
+    public bool IsBeneficial => isBeneficial;
 
     public override bool Equals(object obj)
     {
