@@ -58,7 +58,7 @@ namespace Crm.Application
             }).ToList();
         }
 
-        public async Task<List<Owner>> UpdateOwners(Guid id, IEnumerable<Owner> owners)
+        public async Task UpdateOwners(Guid id, IEnumerable<Owner> owners)
         {
             var company = await companyRepository.Get(id);
             if (company is null)
@@ -76,14 +76,14 @@ namespace Crm.Application
                         owner.Share)));
 
             await companyRepository.Update(company);
-            return company.Owners.Select(owner => new Owner
+
+            foreach (var owner in owners)
             {
-                PersonId = owner.PersonId,
-                CompanyId = company.Id,
-                Name = company.Name,
-                IsBeneficial = owner.IsBeneficial,
-                Share = owner.Share
-            }).ToList();
+                var companyOwner = company.GetOwner(owner.PersonId);
+                owner.CompanyId = companyOwner.CompanyId;
+                owner.IsBeneficial = companyOwner.IsBeneficial;
+                owner.Name = companyOwner.Name;
+            }
         }
     }
 }

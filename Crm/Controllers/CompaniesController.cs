@@ -1,5 +1,4 @@
 ﻿using Crm.Application;
-using Crm.Domain.Company;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Crm.Controllers
@@ -40,6 +39,20 @@ namespace Crm.Controllers
             try
             {
                 var owners = await companyApplication.GetOwners(id);
+                return Ok(owners);
+            }
+            catch (EntityDoesntExistException)
+            {
+                return NotFound();
+            }
+        }
+
+        [HttpPut("{id}/owners")]
+        public async Task<IActionResult> UpdateOwners(Guid id, IEnumerable<Owner> owners)
+        {
+            try
+            {
+                await companyApplication.UpdateOwners(id, owners);
                 return Ok(owners);
             }
             catch (EntityDoesntExistException)

@@ -43,4 +43,9 @@ public class Company : Entity
                     arg.Share));
         }
     }
+
+    public Owner GetOwner(Guid personId)
+    {
+        return owners.FirstOrDefault(owner => owner.PersonId == personId);
+    }
 }
