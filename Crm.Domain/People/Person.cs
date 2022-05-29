@@ -1,4 +1,4 @@
-﻿namespace Crm.Domain.Person;
+﻿namespace Crm.Domain.People;
 
 public class Person : Entity
 {
