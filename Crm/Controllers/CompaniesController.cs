@@ -1,4 +1,5 @@
-﻿using Crm.Domain.Company;
+﻿using Crm.Application;
+using Crm.Domain.Company;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Crm.Controllers
@@ -7,17 +8,17 @@ namespace Crm.Controllers
     [Route("[controller]")]
     public class CompaniesController : ControllerBase
     {
-        private readonly ICompanyRepository companyRepository;
+        private readonly ICompanyApplicationService companyApplication;
 
-        public CompaniesController(ICompanyRepository companyRepository)
+        public CompaniesController(ICompanyApplicationService companyApplication)
         {
-            this.companyRepository = companyRepository;
+            this.companyApplication = companyApplication ?? throw new ArgumentNullException(nameof(companyApplication));
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(Guid id)
         {
-            var company = await companyRepository.Get(id);
+            var company = await companyApplication.Get(id);
             if (company is null)
             {
                 return NotFound();
@@ -29,20 +30,22 @@ namespace Crm.Controllers
         [HttpGet]
         public async Task<IActionResult> GetList()
         {
-            var companies = await companyRepository.GetList();
+            var companies = await companyApplication.GetList();
             return Ok(companies);
         }
 
         [HttpGet("{id}/owners")]
         public async Task<IActionResult> GetOwners(Guid id)
         {
-            var company = await companyRepository.Get(id);
-            if (company is null)
+            try
+            {
+                var owners = await companyApplication.GetOwners(id);
+                return Ok(owners);
+            }
+            catch (EntityDoesntExistException)
             {
                 return NotFound();
             }
-
-            return Ok(company.Owners);
         }
     }
 }

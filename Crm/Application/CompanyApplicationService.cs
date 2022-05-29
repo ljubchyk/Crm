@@ -3,7 +3,7 @@ using Crm.Domain.People;
 
 namespace Crm.Application
 {
-    public class CompanyApplicationService
+    public class CompanyApplicationService : ICompanyApplicationService
     {
         private readonly ICompanyRepository companyRepository;
         private readonly IPersonRepository personRepository;
