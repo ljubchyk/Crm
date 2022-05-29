@@ -37,7 +37,7 @@ namespace Crm.Application
             var company = await companyRepository.Get(id);
             if (company is null)
             {
-                throw new InvalidOperationException($"Unknown company with id: {id}");
+                return null;
             }
 
             return company.Owners.Select(owner => Owner.Create(owner)).ToList();

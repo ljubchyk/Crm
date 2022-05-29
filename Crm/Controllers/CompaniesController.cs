@@ -36,15 +36,13 @@ namespace Crm.Controllers
         [HttpGet("{id}/owners")]
         public async Task<IActionResult> GetOwners(Guid id)
         {
-            try
-            {
-                var owners = await companyApplication.GetOwners(id);
-                return Ok(owners);
-            }
-            catch (InvalidOperationException)
+            var owners = await companyApplication.GetOwners(id);
+            if (owners is null)
             {
                 return NotFound();
             }
+
+            return Ok(owners);
         }
 
         [HttpPut("{id}/owners")]
