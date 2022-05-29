@@ -41,9 +41,9 @@ namespace Crm.Controllers
                 var owners = await companyApplication.GetOwners(id);
                 return Ok(owners);
             }
-            catch (EntityDoesntExistException)
+            catch (InvalidOperationException ex)
             {
-                return NotFound();
+                return NotFound(ex.Message);
             }
         }
 

@@ -37,7 +37,7 @@ namespace Crm.Application
             var company = await companyRepository.Get(id);
             if (company is null)
             {
-                throw new EntityDoesntExistException();
+                throw new InvalidOperationException($"Unknown company with id: {id}");
             }
 
             return company.Owners.Select(owner => Owner.Create(owner)).ToList();
@@ -48,7 +48,7 @@ namespace Crm.Application
             var company = await companyRepository.Get(id);
             if (company is null)
             {
-                throw new EntityDoesntExistException();
+                throw new InvalidOperationException($"Unknown company with id: {id}");
             }
 
             var people = await personRepository.GetList(
