@@ -7,5 +7,21 @@
         public string Name { get; set; }
         public double Share { get; set; }
         public bool IsBeneficial { get; set; }
+
+        public static Owner Create(Domain.Company.Owner owner)
+        {
+            var result = new Owner();
+            Fill(result, owner);
+            return result;
+        }
+
+        public static void Fill(Owner target, Domain.Company.Owner owner)
+        {
+            target.CompanyId = owner.CompanyId;
+            target.IsBeneficial = owner.IsBeneficial;
+            target.Name = owner.Name;
+            target.PersonId = owner.PersonId;
+            target.Share = owner.Share;
+        }
     }
 }

@@ -22,22 +22,14 @@ namespace Crm.Application
                 return null;
             }
 
-            return new Company
-            {
-                Id = company.Id,
-                Name = company.Name
-            };
+            return Company.Create(company);
         }
 
         public async Task<List<Company>> GetList()
         {
             var companies = await companyRepository.GetList();
 
-            return companies.Select(company => new Company
-            {
-                Id = company.Id,
-                Name = company.Name
-            }).ToList();
+            return companies.Select(company => Company.Create(company)).ToList();
         }
 
         public async Task<List<Owner>> GetOwners(Guid id)
@@ -48,14 +40,7 @@ namespace Crm.Application
                 throw new EntityDoesntExistException();
             }
 
-            return company.Owners.Select(owner => new Owner
-            {
-                PersonId = owner.PersonId,
-                CompanyId = company.Id,
-                Name = company.Name,
-                IsBeneficial = owner.IsBeneficial,
-                Share = owner.Share
-            }).ToList();
+            return company.Owners.Select(owner => Owner.Create(owner)).ToList();
         }
 
         public async Task UpdateOwners(Guid id, IEnumerable<Owner> owners)
@@ -79,10 +64,7 @@ namespace Crm.Application
 
             foreach (var owner in owners)
             {
-                var companyOwner = company.GetOwner(owner.PersonId);
-                owner.CompanyId = companyOwner.CompanyId;
-                owner.IsBeneficial = companyOwner.IsBeneficial;
-                owner.Name = companyOwner.Name;
+                Owner.Create(company.GetOwner(owner.PersonId));
             }
         }
     }
