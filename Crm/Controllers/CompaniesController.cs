@@ -50,15 +50,8 @@ namespace Crm.Controllers
         [HttpPut("{id}/owners")]
         public async Task<IActionResult> UpdateOwners(Guid id, IEnumerable<Owner> owners)
         {
-            try
-            {
-                await companyApplication.UpdateOwners(id, owners);
-                return Ok(owners);
-            }
-            catch (EntityDoesntExistException)
-            {
-                return NotFound();
-            }
+            await companyApplication.UpdateOwners(id, owners);
+            return Ok(owners);
         }
     }
 }
