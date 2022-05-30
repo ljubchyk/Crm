@@ -45,6 +45,8 @@ namespace Crm.Tests.CompanyApplication
 
             await companyRepository.Create(domainCompany);
 
+            domainCompany = await companyRepository.Get(domainCompany.Id);
+
             var domainPerson3 = new Domain.People.Person(
                 Guid.NewGuid(),
                 "A3",

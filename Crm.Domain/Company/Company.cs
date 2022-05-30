@@ -5,7 +5,10 @@ public class Company : Entity
     private readonly string name;
     private readonly Guid id;
     private HashSet<Owner> owners;
+    public Company()
+    {
 
+    }
     public Company(Guid id, string name)
     {
         AssertNotEmpty(id, nameof(id));

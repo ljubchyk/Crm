@@ -60,7 +60,7 @@ namespace Crm.Application
                         people.Find(person => person.Id == owner.PersonId),
                         owner.Share)));
 
-            await companyRepository.Update(company);
+            //await companyRepository.Update(company);
 
             foreach (var owner in owners)
             {
