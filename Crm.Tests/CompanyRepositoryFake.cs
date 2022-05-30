@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 public class CompanyRepositoryFake : ICompanyRepository
 {
     private readonly Dictionary<Guid, Company> companies = new Dictionary<Guid, Company>();
-    
+
     public Task Create(Company company)
     {
         companies.Add(company.Id, company);
