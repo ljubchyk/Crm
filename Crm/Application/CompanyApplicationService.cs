@@ -64,7 +64,7 @@ namespace Crm.Application
 
             foreach (var owner in owners)
             {
-                Owner.Create(company.GetOwner(owner.PersonId));
+                Owner.Fill(owner, company.GetOwner(owner.PersonId));
             }
         }
     }
