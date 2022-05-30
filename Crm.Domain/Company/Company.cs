@@ -4,7 +4,7 @@ public class Company : Entity
 {
     private readonly string name;
     private readonly Guid id;
-    private HashSet<Owner> owners;
+    private readonly HashSet<Owner> owners;
 
     public Company(Company company)
     {
@@ -17,8 +17,8 @@ public class Company : Entity
     
     public Company(Guid id, string name)
     {
-        AssertNotEmpty(id, nameof(id));
-        AssertNotEmpty(name, nameof(name));
+        Assert.NotEmpty(id, nameof(id));
+        Assert.NotEmpty(name, nameof(name));
 
         this.id = id;
         this.name = name;
@@ -36,7 +36,7 @@ public class Company : Entity
 
     public void SetOwners(IEnumerable<SetOwnersArg> args)
     {
-        AssertNotNull(args, "owners");
+        Assert.NotNull(args, "owners");
 
         if (args.Sum(o => o.Share) != 100)
         {

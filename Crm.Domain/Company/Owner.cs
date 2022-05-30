@@ -19,10 +19,10 @@ public class Owner : Entity
 
     public Owner(Guid companyId, Guid personId, string name, double share)
     {
-        AssertNotEmpty(companyId, nameof(companyId));
-        AssertNotEmpty(personId, nameof(personId));
-        AssertNotEmpty(name, nameof(name));
-        AssertGreaterThanZero(share, nameof(share));
+        Assert.NotEmpty(companyId, nameof(companyId));
+        Assert.NotEmpty(personId, nameof(personId));
+        Assert.NotEmpty(name, nameof(name));
+        Assert.GreaterThanZero(share, nameof(share));
 
         this.companyId = companyId;
         this.personId = personId;

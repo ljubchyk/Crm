@@ -42,8 +42,8 @@ public class Person : Entity
 
     private void SetName(string firstName, string lastName)
     {
-        AssertNotEmpty(firstName, nameof(firstName));
-        AssertNotEmpty(lastName, nameof(lastName));
+        Assert.NotEmpty(firstName, nameof(firstName));
+        Assert.NotEmpty(lastName, nameof(lastName));
 
         this.firstName = firstName;
         this.lastName = lastName;

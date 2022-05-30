@@ -2,9 +2,9 @@
 
 namespace Crm.Domain;
 
-public class AssertionConcernClass
+public static class Assert
 {
-    protected static void AssertNotEmpty(string input, string paramName)
+    public static void NotEmpty(string input, string paramName)
     {
         if (string.IsNullOrWhiteSpace(input))
         {
@@ -12,7 +12,7 @@ public class AssertionConcernClass
         }
     }
 
-    protected static void AssertNotEmpty(Guid input, string paramName)
+    public static void NotEmpty(Guid input, string paramName)
     {
         if (Guid.Empty == input)
         {
@@ -20,7 +20,7 @@ public class AssertionConcernClass
         }
     }
 
-    protected static void AssertNotNull(IEnumerable input, string paramName)
+    public static void NotNull(IEnumerable input, string paramName)
     {
         if (input is null)
         {
@@ -28,7 +28,7 @@ public class AssertionConcernClass
         }
     }
 
-    protected static void AssertGreaterThanZero(double input, string paramName)
+    public static void GreaterThanZero(double input, string paramName)
     {
         if (input <= 0)
         {

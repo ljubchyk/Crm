@@ -6,7 +6,7 @@ public record Address : ValueObject
     private readonly string city = string.Empty;
     private readonly string postalCode = string.Empty;
     private readonly string line1 = string.Empty;
-    private readonly string? line2;
+    private readonly string line2;
 
     private Address()
     {
@@ -15,14 +15,14 @@ public record Address : ValueObject
 
     public Address(string country, string city, string postalCode, string line1, string line2 = null)
     {
-        AssertNotEmpty(country, nameof(country));
-        AssertNotEmpty(city, nameof(city));
-        AssertNotEmpty(postalCode, nameof(postalCode));
-        AssertNotEmpty(line1, nameof(line1));
+        Assert.NotEmpty(country, nameof(country));
+        Assert.NotEmpty(city, nameof(city));
+        Assert.NotEmpty(postalCode, nameof(postalCode));
+        Assert.NotEmpty(line1, nameof(line1));
 
-        if (line2 != null)
+        if (line2 is not null)
         {
-            AssertNotEmpty(line2, nameof(line2));
+            Assert.NotEmpty(line2, nameof(line2));
         }
 
         this.country = country;
