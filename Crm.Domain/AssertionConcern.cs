@@ -1,4 +1,6 @@
-﻿namespace Crm.Domain;
+﻿using System.Collections;
+
+namespace Crm.Domain;
 
 public class AssertionConcernClass
 {
@@ -13,6 +15,14 @@ public class AssertionConcernClass
     protected static void AssertNotEmpty(Guid input, string paramName)
     {
         if (Guid.Empty == input)
+        {
+            throw new ArgumentException($"The {paramName} must be provided.");
+        }
+    }
+
+    protected static void AssertNotNull(IEnumerable input, string paramName)
+    {
+        if (input is null)
         {
             throw new ArgumentException($"The {paramName} must be provided.");
         }

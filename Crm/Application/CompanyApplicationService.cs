@@ -43,6 +43,11 @@ namespace Crm.Application
             return company.Owners.Select(owner => Owner.Create(owner)).ToList();
         }
 
+        public Task UpdateOwners(Guid id, params Owner[] owners)
+        {
+            return UpdateOwners(id, (IEnumerable<Owner>)owners);
+        }
+
         public async Task UpdateOwners(Guid id, IEnumerable<Owner> owners)
         {
             var company = await companyRepository.Get(id);
@@ -56,11 +61,19 @@ namespace Crm.Application
 
             company.SetOwners(
                 owners.Select(
-                    owner => new SetOwnersArg(
-                        people.Find(person => person.Id == owner.PersonId),
-                        owner.Share)));
+                    owner =>
+                    {
+                        var person = people.Find(person => person.Id == owner.PersonId);
+                        if (person is null)
+                        {
+                            throw new InvalidOperationException($"Unknown person with id: {owner.PersonId}");
+                        }
+                        return new SetOwnersArg(
+                            person,
+                            owner.Share);
+                    }));
 
-            //await companyRepository.Update(company);
+            await companyRepository.Update(company);
 
             foreach (var owner in owners)
             {

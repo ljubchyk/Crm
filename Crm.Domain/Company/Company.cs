@@ -5,10 +5,16 @@ public class Company : Entity
     private readonly string name;
     private readonly Guid id;
     private HashSet<Owner> owners;
-    public Company()
-    {
 
+    public Company(Company company)
+    {
+        name = company.name;
+        id = company.id;
+        owners = new HashSet<Owner>(
+            company.owners.Select(
+                owner => new Owner(owner)));
     }
+    
     public Company(Guid id, string name)
     {
         AssertNotEmpty(id, nameof(id));
@@ -23,12 +29,14 @@ public class Company : Entity
     public string Name => name;
     public IReadOnlySet<Owner> Owners => owners;
 
+    public void SetOwners(params SetOwnersArg[] args)
+    {
+        SetOwners((IEnumerable<SetOwnersArg>)args);
+    }
+
     public void SetOwners(IEnumerable<SetOwnersArg> args)
     {
-        if (args is null)
-        {
-            owners = null;
-        }
+        AssertNotNull(args, "owners");
 
         if (args.Sum(o => o.Share) != 100)
         {

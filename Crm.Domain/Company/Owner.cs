@@ -8,6 +8,15 @@ public class Owner : Entity
     private readonly double share;
     private readonly bool isBeneficial;
 
+    public Owner(Owner owner)
+    {
+        companyId = owner.companyId;
+        personId = owner.personId;
+        name = owner.name;
+        share = owner.share;
+        isBeneficial = owner.isBeneficial;
+    }
+
     public Owner(Guid companyId, Guid personId, string name, double share)
     {
         AssertNotEmpty(companyId, nameof(companyId));
