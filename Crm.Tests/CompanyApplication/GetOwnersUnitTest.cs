@@ -43,9 +43,7 @@ namespace Crm.Tests.CompanyApplication
             await companyRepository.Create(domainCompany);
 
             var owners = await companyApplication.GetOwners(domainCompany.Id);
-
             Assert.IsNotNull(owners);
-            Assert.AreEqual(owners.Count, 2);
 
             var owner1 = owners.Find(c => c.PersonId == domainPerson1.Id);
             Assert.IsNotNull(owner1);
