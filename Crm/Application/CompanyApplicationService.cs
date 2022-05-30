@@ -68,10 +68,10 @@ namespace Crm.Application
                         {
                             throw new InvalidOperationException($"Unknown person with id: {owner.PersonId}");
                         }
-                        return new SetOwnersArg(
+                        return new OwnerArg(
                             person,
                             owner.Share);
-                    }));
+                    }).ToArray());
 
             await companyRepository.Update(company);
 

@@ -4,15 +4,16 @@ public class Company : Entity
 {
     private readonly string name;
     private readonly Guid id;
-    private readonly HashSet<Owner> owners;
+    private readonly SortedSet<Owner> owners;
 
     public Company(Company company)
     {
         name = company.name;
         id = company.id;
-        owners = new HashSet<Owner>(
+        owners = new SortedSet<Owner>(
             company.owners.Select(
-                owner => new Owner(owner)));
+                owner => new Owner(owner)),
+            new OwnerComparer());
     }
     
     public Company(Guid id, string name)
@@ -22,41 +23,53 @@ public class Company : Entity
 
         this.id = id;
         this.name = name;
-        owners = new HashSet<Owner>();
+        owners = new SortedSet<Owner>(new OwnerComparer());
     }
 
     public Guid Id => id;
     public string Name => name;
     public IReadOnlySet<Owner> Owners => owners;
 
-    public void SetOwners(params SetOwnersArg[] args)
+    public void SetOwners(params OwnerArg[] args)
     {
-        SetOwners((IEnumerable<SetOwnersArg>)args);
+        SetOwners((ICollection<OwnerArg>)args);
     }
 
-    public void SetOwners(IEnumerable<SetOwnersArg> args)
+    public void SetOwners(ICollection<OwnerArg> owners)
     {
-        Assert.NotNull(args, "owners");
+        Assert.NotNull(owners, nameof(owners));
 
-        if (args.Sum(o => o.Share) != 100)
+        if (owners.Sum(o => o.Share) != 100)
         {
             throw new Exception("Sum of Owners shares must be equal 100.");
         }
 
-        owners.Clear();
-        foreach (var arg in args)
+        this.owners.Clear();
+        foreach (var owner in owners)
         {
-            owners.Add(
+            var isAdded = this.owners.Add(
                 new Owner(
                     id,
-                    arg.Person.Id,
-                    arg.Person.FullName,
-                    arg.Share));
+                    owner.Person.Id,
+                    owner.Person.FullName,
+                    owner.Share));
+            if (!isAdded)
+            {
+                throw new InvalidOperationException($"Owner with PersonId: {owner.Person.Id} is duplicated.");
+            }
         }
     }
 
     public Owner GetOwner(Guid personId)
     {
         return owners.FirstOrDefault(owner => owner.PersonId == personId);
+    }
+
+    private class OwnerComparer : IComparer<Owner>
+    {
+        public int Compare(Owner x, Owner y)
+        {
+            return x.Name.CompareTo(y.Name);
+        }
     }
 }

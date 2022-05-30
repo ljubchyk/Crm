@@ -37,8 +37,8 @@ namespace Crm.Tests.CompanyApplication
                 "A");
             domainCompany.SetOwners(new[]
             {
-                new Domain.Company.SetOwnersArg(domainPerson1, 50),
-                new Domain.Company.SetOwnersArg(domainPerson2, 50)
+                new Domain.Company.OwnerArg(domainPerson1, 50),
+                new Domain.Company.OwnerArg(domainPerson2, 50)
             });
             await companyRepository.Create(domainCompany);
 

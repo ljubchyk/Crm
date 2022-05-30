@@ -38,8 +38,8 @@ namespace Crm.Tests.CompanyApplication
                 Guid.NewGuid(),
                 "A");
             domainCompany.SetOwners(
-                new Domain.Company.SetOwnersArg(domainPerson1, 50),
-                new Domain.Company.SetOwnersArg(domainPerson2, 50));
+                new Domain.Company.OwnerArg(domainPerson1, 50),
+                new Domain.Company.OwnerArg(domainPerson2, 50));
 
             await companyRepository.Create(domainCompany);
 

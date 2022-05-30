@@ -2,9 +2,9 @@
 
 namespace Crm.Domain.Company;
 
-public class SetOwnersArg
+public class OwnerArg
 {
-    public SetOwnersArg(Person person, double share)
+    public OwnerArg(Person person, double share)
     {
         Person = person;
         Share = share;
