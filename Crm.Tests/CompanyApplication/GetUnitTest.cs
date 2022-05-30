@@ -36,7 +36,7 @@ namespace Crm.Tests.CompanyApplication
         }
 
         [TestMethod]
-        public async Task ReturnsNullIfMissed()
+        public async Task ReturnsNullIfCompanyMissed()
         {
             var company = await companyApplication.Get(Guid.Empty);
 
