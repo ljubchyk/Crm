@@ -8,8 +8,13 @@ public class Person : Entity
     private Address address;
     private readonly Guid id;
 
-    private Person()
+    public Person(Person person)
     {
+        fullName = person.fullName;
+        firstName = person.firstName;
+        lastName = person.lastName;
+        address = person.address;
+        id = person.id;
     }
 
     public Person(Guid id, string firstName, string lastName, Address address = null)
