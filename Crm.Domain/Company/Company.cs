@@ -7,23 +7,24 @@ public class Company : Entity
     private readonly SortedSet<Owner> owners;
 
     public Company(Company company)
+        : base(company.id)
     {
         name = company.name;
         id = company.id;
         owners = new SortedSet<Owner>(
             company.owners.Select(
-                owner => new Owner(owner)),
-            new OwnerComparer());
+                owner => new Owner(owner)));
     }
-    
+
     public Company(Guid id, string name)
+        : base(id)
     {
         Assert.NotEmpty(id, nameof(id));
         Assert.NotEmpty(name, nameof(name));
 
         this.id = id;
         this.name = name;
-        owners = new SortedSet<Owner>(new OwnerComparer());
+        owners = new SortedSet<Owner>();
     }
 
     public Guid Id => id;
@@ -63,13 +64,5 @@ public class Company : Entity
     public Owner GetOwner(Guid personId)
     {
         return owners.FirstOrDefault(owner => owner.PersonId == personId);
-    }
-
-    private class OwnerComparer : IComparer<Owner>
-    {
-        public int Compare(Owner x, Owner y)
-        {
-            return x.Name.CompareTo(y.Name);
-        }
     }
 }

@@ -57,6 +57,34 @@ namespace Crm.Tests.CompanyApplication
         }
 
         [TestMethod]
+        public async Task ReturnsOrdered()
+        {
+            var domainPerson1 = new Domain.People.Person(
+                Guid.NewGuid(),
+                "B",
+                "C");
+            var domainPerson2 = new Domain.People.Person(
+                Guid.NewGuid(),
+                "A",
+                "C");
+
+            var domainCompany = new Domain.Company.Company(
+                Guid.NewGuid(),
+                "A");
+            domainCompany.SetOwners(new[]
+            {
+                new Domain.Company.OwnerArg(domainPerson1, 50),
+                new Domain.Company.OwnerArg(domainPerson2, 50)
+            });
+            await companyRepository.Create(domainCompany);
+
+            var owners = await companyApplication.GetOwners(domainCompany.Id);
+            Assert.IsNotNull(owners);
+            Assert.AreEqual(2, owners.Count);
+            Assert.IsFalse(owners[0].Name.CompareTo(owners[1].Name) > 0, "Owners are not ordered.");
+        }
+
+        [TestMethod]
         public async Task ReturnsEmptyIfOwnersMissed()
         {
             var domainCompany = new Domain.Company.Company(

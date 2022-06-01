@@ -9,6 +9,7 @@ public class Person : Entity
     private readonly Guid id;
 
     public Person(Person person)
+        : base(person.id)
     {
         fullName = person.fullName;
         firstName = person.firstName;
@@ -18,6 +19,7 @@ public class Person : Entity
     }
 
     public Person(Guid id, string firstName, string lastName, Address address = null)
+        : base(id)
     {
         SetName(firstName, lastName);
         SetAddress(address);

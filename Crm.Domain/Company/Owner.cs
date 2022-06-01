@@ -1,6 +1,8 @@
-﻿namespace Crm.Domain.Company;
+﻿using System.Collections;
 
-public class Owner : Entity
+namespace Crm.Domain.Company;
+
+public class Owner : Entity, IComparable<Owner>
 {
     private readonly Guid companyId;
     private readonly Guid personId;
@@ -9,6 +11,7 @@ public class Owner : Entity
     private readonly bool isBeneficial;
 
     public Owner(Owner owner)
+        : base(owner.companyId, owner.personId)
     {
         companyId = owner.companyId;
         personId = owner.personId;
@@ -18,6 +21,7 @@ public class Owner : Entity
     }
 
     public Owner(Guid companyId, Guid personId, string name, double share)
+         : base(companyId, personId)
     {
         Assert.NotEmpty(companyId, nameof(companyId));
         Assert.NotEmpty(personId, nameof(personId));
@@ -37,15 +41,9 @@ public class Owner : Entity
     public double Share => share;
     public bool IsBeneficial => isBeneficial;
 
-    public override bool Equals(object obj)
+    public int CompareTo(Owner other)
     {
-        return obj is Owner owner &&
-               companyId.Equals(owner.companyId) &&
-               personId.Equals(owner.personId);
-    }
-
-    public override int GetHashCode()
-    {
-        return HashCode.Combine(companyId, personId);
+        Assert.NotNull(other, nameof(other));
+        return name.CompareTo(other.name);
     }
 }

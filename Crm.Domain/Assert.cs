@@ -12,6 +12,14 @@ public static class Assert
         }
     }
 
+    public static void NotEmpty(ICollection input, string paramName)
+    {
+        if (input.Count == 0)
+        {
+            throw new ArgumentException($"The {paramName} must can't be empty.");
+        }
+    }
+
     public static void NotEmpty(Guid input, string paramName)
     {
         if (Guid.Empty == input)
@@ -20,7 +28,7 @@ public static class Assert
         }
     }
 
-    public static void NotNull(IEnumerable input, string paramName)
+    public static void NotNull(object input, string paramName)
     {
         if (input is null)
         {
