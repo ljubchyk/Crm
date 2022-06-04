@@ -7,11 +7,15 @@
 
         public static Company Create(Domain.Company.Company company)
         {
-            return new Company
-            {
-                Id = company.Id,
-                Name = company.Name
-            };
+            var result = new Company();
+            Fill(result, company);
+            return result;
+        }
+
+        public static void Fill(Company target, Domain.Company.Company company)
+        {
+            target.Id = company.Id;
+            target.Name = company.Name;
         }
     }
 }

@@ -2,7 +2,7 @@
 
 public class Company : Entity
 {
-    private readonly string name;
+    private string name;
     private readonly Guid id;
     private readonly SortedSet<Owner> owners;
 
@@ -30,6 +30,12 @@ public class Company : Entity
     public Guid Id => id;
     public string Name => name;
     public IReadOnlySet<Owner> Owners => owners;
+
+    public void Rename(string name)
+    {
+        Assert.NotEmpty(name, nameof(name));
+        this.name = name;
+    }
 
     public void SetOwners(params OwnerArg[] args)
     {
