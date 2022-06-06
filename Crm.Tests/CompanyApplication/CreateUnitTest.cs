@@ -37,11 +37,7 @@ namespace Crm.Tests.CompanyApplication
         [TestMethod]
         public async Task FailIfNameMissed()
         {
-            var company = new Company
-            {
-                Name = "A"
-            };
-
+            var company = new Company();
             var action = () => companyApplication.Create(company);
             await Assert.ThrowsExceptionAsync<ArgumentException>(action);
         }
