@@ -14,22 +14,11 @@ namespace Crm.Application
 
         public async Task Create(Person model)
         {
-            Domain.Address address = null;
-            if(model.Address is not null)
-            {
-                address = new Domain.Address(
-                    model.Address.Country,
-                    model.Address.City,
-                    model.Address.PostalCode,
-                    model.Address.Line1,
-                    model.Address.Line2);
-            }
-
             var person = new Domain.People.Person(
                 Guid.NewGuid(),
                 model.FirstName,
                 model.LastName,
-                address);
+                TryCreateAddress(model.Address));
 
             await personRepository.Create(person);
         }
@@ -60,23 +49,25 @@ namespace Crm.Application
             }
 
             person.Rename(model.FirstName, model.LastName);
-            if(model.Address is null)
-            {
-                person.Relocate(null);
-            }
-            else
-            {
-                person.Relocate(
-                    new Domain.Address(
-                        model.Address.Country,
-                        model.Address.City,
-                        model.Address.PostalCode,
-                        model.Address.Line1,
-                        model.Address.Line2));
-            }
+            person.Relocate(TryCreateAddress(model.Address));
 
             await personRepository.Update(person);
             Person.Fill(model, person);
+        }
+
+        private static Domain.Address TryCreateAddress(Address address)
+        {
+            if (address is null)
+            {
+                return null;
+            }
+
+            return new Domain.Address(
+                address.Country,
+                address.City,
+                address.PostalCode,
+                address.Line1,
+                address.Line2);
         }
     }
 }
