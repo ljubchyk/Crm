@@ -35,6 +35,7 @@ public class Person : Entity
     public void Rename(string firstName, string lastName)
     {
         SetName(firstName, lastName);
+        AddDomainEvent(new PersonRenamed(id, fullName));
     }
 
     public void Relocate(Address address)
