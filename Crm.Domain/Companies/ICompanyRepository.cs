@@ -1,4 +1,4 @@
-﻿namespace Crm.Domain.Company;
+﻿namespace Crm.Domain.Companies;
 
 public interface ICompanyRepository
 {

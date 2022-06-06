@@ -23,7 +23,7 @@ namespace Crm.Tests.CompanyApplication
         [TestMethod]
         public async Task Returns()
         {
-            var domainCompany = new Domain.Company.Company(
+            var domainCompany = new Domain.Companies.Company(
                 Guid.NewGuid(),
                 "A");
             await companyRepository.Create(domainCompany);

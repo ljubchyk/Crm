@@ -1,4 +1,4 @@
-﻿using Crm.Domain.Company;
+﻿using Crm.Domain.Companies;
 using System;
 using System.Collections.Generic;
 using System.Linq;

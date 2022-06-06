@@ -1,6 +1,6 @@
 ﻿using System.Collections;
 
-namespace Crm.Domain.Company;
+namespace Crm.Domain.Companies;
 
 public class Owner : Entity, IComparable<Owner>
 {

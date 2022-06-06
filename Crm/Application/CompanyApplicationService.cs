@@ -1,4 +1,4 @@
-﻿using Crm.Domain.Company;
+﻿using Crm.Domain.Companies;
 using Crm.Domain.People;
 
 namespace Crm.Application
@@ -28,13 +28,12 @@ namespace Crm.Application
         public async Task<List<Company>> GetList()
         {
             var companies = await companyRepository.GetList();
-
             return companies.Select(company => Company.Create(company)).ToList();
         }
 
         public async Task Create(Company model)
         {
-            var company = new Domain.Company.Company(
+            var company = new Domain.Companies.Company(
                 Guid.NewGuid(), 
                 model.Name);
 

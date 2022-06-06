@@ -23,10 +23,10 @@ namespace Crm.Tests.CompanyApplication
         [TestMethod]
         public async Task ReturnsList()
         {
-            var domainCompany1 = new Domain.Company.Company(
+            var domainCompany1 = new Domain.Companies.Company(
                 Guid.NewGuid(),
                 "A");
-            var domainCompany2 = new Domain.Company.Company(
+            var domainCompany2 = new Domain.Companies.Company(
                 Guid.NewGuid(),
                 "B");
             await companyRepository.Create(domainCompany1);

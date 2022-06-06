@@ -34,12 +34,12 @@ namespace Crm.Tests.CompanyApplication
                 "A2",
                 "B2");
 
-            var domainCompany = new Domain.Company.Company(
+            var domainCompany = new Domain.Companies.Company(
                 Guid.NewGuid(),
                 "A");
             domainCompany.SetOwners(
-                new Domain.Company.OwnerArg(domainPerson1, 50),
-                new Domain.Company.OwnerArg(domainPerson2, 50));
+                new Domain.Companies.OwnerArg(domainPerson1, 50),
+                new Domain.Companies.OwnerArg(domainPerson2, 50));
 
             await companyRepository.Create(domainCompany);
 
@@ -104,7 +104,7 @@ namespace Crm.Tests.CompanyApplication
         [TestMethod]
         public async Task FailsIfMissedPerson()
         {
-            var domainCompany = new Domain.Company.Company(
+            var domainCompany = new Domain.Companies.Company(
                 Guid.NewGuid(),
                 "A");
 

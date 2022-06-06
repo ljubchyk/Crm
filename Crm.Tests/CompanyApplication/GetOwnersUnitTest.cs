@@ -32,13 +32,13 @@ namespace Crm.Tests.CompanyApplication
                 "A2",
                 "B2");
 
-            var domainCompany = new Domain.Company.Company(
+            var domainCompany = new Domain.Companies.Company(
                 Guid.NewGuid(),
                 "A");
             domainCompany.SetOwners(new[]
             {
-                new Domain.Company.OwnerArg(domainPerson1, 50),
-                new Domain.Company.OwnerArg(domainPerson2, 50)
+                new Domain.Companies.OwnerArg(domainPerson1, 50),
+                new Domain.Companies.OwnerArg(domainPerson2, 50)
             });
             await companyRepository.Create(domainCompany);
 
@@ -68,13 +68,13 @@ namespace Crm.Tests.CompanyApplication
                 "A",
                 "C");
 
-            var domainCompany = new Domain.Company.Company(
+            var domainCompany = new Domain.Companies.Company(
                 Guid.NewGuid(),
                 "A");
             domainCompany.SetOwners(new[]
             {
-                new Domain.Company.OwnerArg(domainPerson1, 50),
-                new Domain.Company.OwnerArg(domainPerson2, 50)
+                new Domain.Companies.OwnerArg(domainPerson1, 50),
+                new Domain.Companies.OwnerArg(domainPerson2, 50)
             });
             await companyRepository.Create(domainCompany);
 
@@ -87,7 +87,7 @@ namespace Crm.Tests.CompanyApplication
         [TestMethod]
         public async Task ReturnsEmptyIfOwnersMissed()
         {
-            var domainCompany = new Domain.Company.Company(
+            var domainCompany = new Domain.Companies.Company(
                 Guid.NewGuid(),
                 "A");
             await companyRepository.Create(domainCompany);
@@ -100,7 +100,7 @@ namespace Crm.Tests.CompanyApplication
         [TestMethod]
         public async Task ReturnsNullIfCompanyMissed()
         {
-            var domainCompany = new Domain.Company.Company(
+            var domainCompany = new Domain.Companies.Company(
                 Guid.NewGuid(),
                 "A");
             await companyRepository.Create(domainCompany);

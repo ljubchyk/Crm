@@ -1,6 +1,6 @@
 ﻿using Crm.Domain.People;
 
-namespace Crm.Domain.Company;
+namespace Crm.Domain.Companies;
 
 public class OwnerArg
 {

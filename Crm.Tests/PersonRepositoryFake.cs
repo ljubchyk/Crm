@@ -32,10 +32,25 @@ public class PersonRepositoryFake : IPersonRepository
         return storage.Create(person.Id, person);
     }
 
+    public Task<Person> Get(Guid id)
+    {
+        throw new NotImplementedException();
+    }
+
     public Task<List<Person>> GetList(IEnumerable<Guid> ids)
     {
         return Task.FromResult(
             storage.Query().Where(
                 v => ids.Contains(v.Id)).ToList());
+    }
+
+    public Task<List<Person>> GetList()
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task Update(Person person)
+    {
+        throw new NotImplementedException();
     }
 }
