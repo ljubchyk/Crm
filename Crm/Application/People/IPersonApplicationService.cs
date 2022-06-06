@@ -1,6 +1,6 @@
 ﻿using Crm.Domain.People;
 
-namespace Crm.Application
+namespace Crm.Application.People
 {
     public interface IPersonApplicationService
     {

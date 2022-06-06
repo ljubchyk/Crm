@@ -1,7 +1,7 @@
 ﻿using Crm.Domain.Companies;
 using Crm.Domain.People;
 
-namespace Crm.Application
+namespace Crm.Application.Companies
 {
     public class CompanyApplicationService : ICompanyApplicationService
     {
@@ -34,7 +34,7 @@ namespace Crm.Application
         public async Task Create(Company model)
         {
             var company = new Domain.Companies.Company(
-                Guid.NewGuid(), 
+                Guid.NewGuid(),
                 model.Name);
 
             await companyRepository.Create(company);

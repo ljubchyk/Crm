@@ -1,4 +1,4 @@
-﻿namespace Crm.Application
+﻿namespace Crm.Application.Companies
 {
     public class Owner
     {

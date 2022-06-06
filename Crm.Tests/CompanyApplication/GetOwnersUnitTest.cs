@@ -1,4 +1,4 @@
-﻿using Crm.Application;
+﻿using Crm.Application.Companies;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Threading.Tasks;

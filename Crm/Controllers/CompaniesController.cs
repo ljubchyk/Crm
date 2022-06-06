@@ -1,4 +1,4 @@
-﻿using Crm.Application;
+﻿using Crm.Application.Companies;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Crm.Controllers
