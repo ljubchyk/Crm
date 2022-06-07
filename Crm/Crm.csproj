@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Crm.Domain\Crm.Domain.csproj" />
+    <ProjectReference Include="..\Crm.Infrastructure\Crm.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>
