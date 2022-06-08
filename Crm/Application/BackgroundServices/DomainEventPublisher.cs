@@ -1,5 +1,8 @@
-﻿using Crm.Infrastructure;
+﻿using Crm.Domain;
+using Crm.Infrastructure;
 using MassTransit;
+using System.Reflection;
+using System.Text.Json;
 
 namespace Crm.Application.BackgroundServices
 {
@@ -19,7 +22,7 @@ namespace Crm.Application.BackgroundServices
             while (!stoppingToken.IsCancellationRequested)
             {
                 using var scope = serviceProvider.CreateScope();
-                var eventStore = scope.ServiceProvider.GetRequiredService<IEventStore>();
+                var eventStore = (IEventStore)null;// scope.ServiceProvider.GetRequiredService<IEventStore>();
                 await PublisEvents(eventStore, stoppingToken);
                 await Task.Delay(500, stoppingToken);
             }
@@ -32,6 +35,8 @@ namespace Crm.Application.BackgroundServices
                 return;
             }
 
+            await bus.Publish(new Domain.People.PersonRenamed(Guid.NewGuid(), "ds"));
+            return;
             var storedEvents = await eventStore.GetList();
             foreach (var storedEvent in storedEvents)
             {
@@ -39,8 +44,15 @@ namespace Crm.Application.BackgroundServices
                 {
                     return;
                 }
+                
+                var domainEventType = typeof(DomainEvent)
+                    .Assembly
+                    .GetType(storedEvent.EventName);
+                var domainEvent = JsonSerializer.Deserialize(
+                    storedEvent.EventBody, 
+                    domainEventType);
 
-                await bus.Publish(storedEvent.EventBody, stoppingToken);
+                await bus.Publish(domainEvent, stoppingToken);
                 await eventStore.Remove(storedEvent);
             }
         }

@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Crm.Domain", "Crm.Domain\Cr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Crm.Infrastructure", "Crm.Infrastructure\Crm.Infrastructure.csproj", "{AAD0F04A-74A0-4FC3-926C-67E54B2BAA17}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Crm.Tests", "Crm.Tests\Crm.Tests.csproj", "{889D754A-82D2-42B1-9107-558008CC8C95}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Crm.Tests", "Crm.Tests\Crm.Tests.csproj", "{889D754A-82D2-42B1-9107-558008CC8C95}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Crm.IntegrationTests", "Crm.IntegrationTests\Crm.IntegrationTests.csproj", "{591ACFF3-A992-482A-85CD-F6D573C29615}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{889D754A-82D2-42B1-9107-558008CC8C95}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{889D754A-82D2-42B1-9107-558008CC8C95}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{889D754A-82D2-42B1-9107-558008CC8C95}.Release|Any CPU.Build.0 = Release|Any CPU
+		{591ACFF3-A992-482A-85CD-F6D573C29615}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{591ACFF3-A992-482A-85CD-F6D573C29615}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{591ACFF3-A992-482A-85CD-F6D573C29615}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{591ACFF3-A992-482A-85CD-F6D573C29615}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

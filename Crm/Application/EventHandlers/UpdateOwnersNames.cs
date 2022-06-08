@@ -8,9 +8,9 @@ namespace Crm.Application.EventHandlers
     {
         private readonly ICompanyRepository companyRepository;
 
-        public UpdateOwnersNames(ICompanyRepository companyRepository)
+        public UpdateOwnersNames(/*ICompanyRepository companyRepository*/)
         {
-            this.companyRepository = companyRepository;
+            companyRepository = null;
         }
 
         public async Task Consume(ConsumeContext<PersonRenamed> context)

@@ -7,12 +7,11 @@ namespace Crm.Tests.PersonApplication
     {
         protected PersonRepositoryFake personRepository;
         protected PersonApplicationService personApplication;
-        protected EventStoreFake eventStorage;
 
         [TestInitialize]
         public void SetUp()
         {
-            eventStorage = new EventStoreFake();
+            var eventStorage = new EventStoreFake();
             personRepository = new PersonRepositoryFake(eventStorage);
             personApplication = new PersonApplicationService(
                 personRepository);

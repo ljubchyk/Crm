@@ -13,7 +13,7 @@ public class EventStoreFake : IEventStore
 
     public Task<StoredEvent> Add(DomainEvent domainEvent)
     {
-        var eventName = domainEvent.GetType().Name;
+        var eventName = domainEvent.GetType().FullName;
         var eventBody = JsonSerializer.Serialize(domainEvent, domainEvent.GetType());
         var storedEvent = new StoredEvent(
             eventName, 

@@ -1,6 +1,8 @@
 using Crm.Application.BackgroundServices;
+using Crm.Application.EventHandlers;
 using Crm.Infrastructure;
 using MassTransit;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,10 +15,13 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddMassTransit(configurator =>
 {
-    configurator.UsingInMemory();
+    configurator.AddConsumer<UpdateOwnersNames>();
+    configurator.UsingInMemory((context, cfg) =>
+    {
+        cfg.ConfigureEndpoints(context);
+    });
 });
 builder.Services.AddHostedService<DomainEventPublisher>();
-//builder.Services.AddSingleton<IEventStore, EventStoreFake>
 
 var app = builder.Build();
 
@@ -34,3 +39,5 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+public partial class Program { }
