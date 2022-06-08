@@ -71,4 +71,15 @@ public class Company : Entity
     {
         return owners.FirstOrDefault(owner => owner.PersonId == personId);
     }
+
+    public void RenameOwner(Guid personId, string name)
+    {
+        var owner = GetOwner(personId);
+        if (owner is null)
+        {
+            throw new InvalidOperationException($"Unknown owner with person id: {personId}");
+        }
+
+        owner.Rename(name);
+    }
 }

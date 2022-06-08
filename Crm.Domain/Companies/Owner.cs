@@ -6,7 +6,7 @@ public class Owner : Entity, IComparable<Owner>
 {
     private readonly Guid companyId;
     private readonly Guid personId;
-    private readonly string name;
+    private string name;
     private readonly double share;
     private readonly bool isBeneficial;
 
@@ -40,6 +40,11 @@ public class Owner : Entity, IComparable<Owner>
     public string Name => name;
     public double Share => share;
     public bool IsBeneficial => isBeneficial;
+
+    internal void Rename(string name)
+    {
+        this.name = name;
+    }
 
     public int CompareTo(Owner other)
     {

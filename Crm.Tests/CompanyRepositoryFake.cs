@@ -32,8 +32,27 @@ public class CompanyRepositoryFake : ICompanyRepository
             storage.Query().ToList());
     }
 
+    public Task<List<Company>> GetListWithOwner(Guid personId)
+    {
+        var result = storage
+            .Query()
+            .Where(
+            company => company.Owners.Any(
+                owner => owner.PersonId == personId)).ToList();
+        return Task.FromResult(result);
+    }
+
     public Task Update(Company company)
     {
         return storage.Update(company.Id, company);
+    }
+
+    public Task Update(ICollection<Company> companies)
+    {
+        foreach (var company in companies)
+        {
+            Update(company);
+        }
+        return Task.CompletedTask;
     }
 }
