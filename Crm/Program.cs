@@ -1,4 +1,5 @@
 using Crm.Application.BackgroundServices;
+using Crm.Infrastructure;
 using MassTransit;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -15,6 +16,7 @@ builder.Services.AddMassTransit(configurator =>
     configurator.UsingInMemory();
 });
 builder.Services.AddHostedService<DomainEventPublisher>();
+//builder.Services.AddSingleton<IEventStore, EventStoreFake>
 
 var app = builder.Build();
 

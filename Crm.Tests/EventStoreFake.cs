@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Crm.Tests;
 
-public class EventStorageFake : IEventStore
+public class EventStoreFake : IEventStore
 {
     private readonly List<StoredEvent> storedEvents = new List<StoredEvent>();
 
