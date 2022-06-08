@@ -1,31 +1,20 @@
 ﻿using Crm.Domain.People;
+using Crm.Infrastructure;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-//public class PersonRepositoryFake : IPersonRepository
-//{
-//    private readonly Dictionary<Guid, Person> people = new Dictionary<Guid, Person>();
-
-//    public Task Create(Person person)
-//    {
-//        people.Add(person.Id, person);
-//        return Task.CompletedTask;
-//    }
-
-//    public Task<List<Person>> GetList(IEnumerable<Guid> ids)
-//    {
-//        return Task.FromResult(
-//            people.Values.Where(
-//                v => ids.Contains(v.Id)).ToList());
-//    }
-//}
+namespace Crm.Tests;
 
 public class PersonRepositoryFake : IPersonRepository
 {
-    private readonly StorageFake<Person> storage = new StorageFake<Person>();
-    private readonly Dictionary<Guid, Person> people = new Dictionary<Guid, Person>();
+    private readonly StorageFake<Person> storage;
+
+    public PersonRepositoryFake(IEventStore eventStore)
+    {
+        storage = new StorageFake<Person>(eventStore);
+    }
 
     public Task Create(Person person)
     {
@@ -34,7 +23,7 @@ public class PersonRepositoryFake : IPersonRepository
 
     public Task<Person> Get(Guid id)
     {
-        throw new NotImplementedException();
+        return storage.Get(id);
     }
 
     public Task<List<Person>> GetList(IEnumerable<Guid> ids)
@@ -51,6 +40,6 @@ public class PersonRepositoryFake : IPersonRepository
 
     public Task Update(Person person)
     {
-        throw new NotImplementedException();
+        return storage.Update(person.Id, person);
     }
 }

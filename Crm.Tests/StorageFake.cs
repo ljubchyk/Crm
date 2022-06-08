@@ -1,16 +1,29 @@
-﻿using System;
+﻿using Crm.Domain;
+using Crm.Infrastructure;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-public class StorageFake<T>
+namespace Crm.Tests;
+
+public class StorageFake<T> 
+    where T : Entity
 {
-    private readonly Dictionary<Guid, T> data = new Dictionary<Guid, T>();
+    private readonly Dictionary<Guid, T> data = new();
+    private readonly IEventStore eventStore;
+
+    public StorageFake(IEventStore eventStore)
+    {
+        this.eventStore = eventStore;
+    }
 
     public Task Create(Guid id, T item)
     {
         var copy = (T)Activator.CreateInstance(typeof(T), item);
         data.Add(id, copy);
+
+        StoreEvents(item);
         return Task.CompletedTask;
     }
 
@@ -42,6 +55,16 @@ public class StorageFake<T>
 
         var copy = (T)Activator.CreateInstance(typeof(T), item);
         data.Add(id, copy);
+
+        StoreEvents(item);
         return Task.CompletedTask;
+    }
+
+    private void StoreEvents(T item)
+    {
+        foreach (var domainEvent in item.DomainEvents)
+        {
+            eventStore.Add(domainEvent);
+        }
     }
 }

@@ -11,11 +11,11 @@ namespace Crm.Infrastructure
         private readonly DateTime occuredOn;
         private readonly int id;
 
-        public StoredEvent(DomainEvent domainEvent)
+        public StoredEvent(string eventName, string eventBody, DateTime occuredOn)
         {
-            eventName = domainEvent.GetType().Name;
-            eventBody = JsonSerializer.Serialize(domainEvent);
-            occuredOn = domainEvent.OccuredOn;
+            this.eventName = eventName;
+            this.eventBody = eventBody;
+            this.occuredOn = occuredOn;
         }
 
         public int Id => id;

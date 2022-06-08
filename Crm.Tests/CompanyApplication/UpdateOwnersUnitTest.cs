@@ -7,22 +7,8 @@ using System.Threading.Tasks;
 namespace Crm.Tests.CompanyApplication
 {
     [TestClass]
-    public class UpdateOwnersUnitTest
+    public class UpdateOwnersUnitTest : UnitTestBase
     {
-        private PersonRepositoryFake personRepository;
-        private CompanyRepositoryFake companyRepository;
-        private CompanyApplicationService companyApplication;
-
-        [TestInitialize]
-        public void SetUp()
-        {
-            personRepository = new PersonRepositoryFake();
-            companyRepository = new CompanyRepositoryFake();
-            companyApplication = new CompanyApplicationService(
-                companyRepository,
-                personRepository);
-        }
-
         [TestMethod]
         public async Task Updates()
         {

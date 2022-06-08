@@ -1,13 +1,20 @@
 ﻿using Crm.Domain.Companies;
+using Crm.Infrastructure;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
+namespace Crm.Tests;
+
 public class CompanyRepositoryFake : ICompanyRepository
 {
-    private readonly StorageFake<Company> storage = new StorageFake<Company>();
-    private readonly Dictionary<Guid, Company> companies = new Dictionary<Guid, Company>();
+    private readonly StorageFake<Company> storage;
+
+    public CompanyRepositoryFake(IEventStore eventStore)
+    {
+        storage = new StorageFake<Company>(eventStore);
+    }
 
     public Task Create(Company company)
     {

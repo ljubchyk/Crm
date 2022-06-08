@@ -6,20 +6,8 @@ using System.Threading.Tasks;
 namespace Crm.Tests.CompanyApplication
 {
     [TestClass]
-    public class GetOwnersUnitTest
+    public class GetOwnersUnitTest : UnitTestBase
     {
-        private CompanyRepositoryFake companyRepository;
-        private CompanyApplicationService companyApplication;
-
-        [TestInitialize]
-        public void SetUp()
-        {
-            companyRepository = new CompanyRepositoryFake();
-            companyApplication = new CompanyApplicationService(
-                companyRepository,
-                new PersonRepositoryFake());
-        }
-
         [TestMethod]
         public async Task Returns()
         {

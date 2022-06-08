@@ -9,6 +9,7 @@ namespace Crm.Infrastructure
     public interface IEventStore
     {
         Task<StoredEvent> Add(DomainEvent domainEvent);
+        Task Remove(StoredEvent storedEvent);
         Task<List<StoredEvent>> GetList();
     }
 }
