@@ -22,7 +22,7 @@ namespace Crm.Application.BackgroundServices
             while (!stoppingToken.IsCancellationRequested)
             {
                 using var scope = serviceProvider.CreateScope();
-                var eventStore = (IEventStore)null;// scope.ServiceProvider.GetRequiredService<IEventStore>();
+                var eventStore = scope.ServiceProvider.GetRequiredService<IEventStore>();
                 await PublisEvents(eventStore, stoppingToken);
                 await Task.Delay(500, stoppingToken);
             }
@@ -35,8 +35,6 @@ namespace Crm.Application.BackgroundServices
                 return;
             }
 
-            await bus.Publish(new Domain.People.PersonRenamed(Guid.NewGuid(), "ds"));
-            return;
             var storedEvents = await eventStore.GetList();
             foreach (var storedEvent in storedEvents)
             {
