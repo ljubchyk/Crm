@@ -1,7 +1,6 @@
 ﻿using Crm.Domain;
 using Crm.Infrastructure;
 using MassTransit;
-using System.Reflection;
 using System.Text.Json;
 
 namespace Crm.Application.BackgroundServices
