@@ -1,8 +1,6 @@
 using Crm.Application.BackgroundServices;
-using Crm.Application.EventHandlers;
-using Crm.Infrastructure;
-using MassTransit;
-using System.Reflection;
+using Crm.Domain.People;
+using EasyNetQ;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,17 +11,15 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddMassTransit(configurator =>
-{
-    configurator.AddConsumer<UpdateOwnersNames>();
-    configurator.UsingInMemory((context, cfg) =>
-    {
-        cfg.ConfigureEndpoints(context);
-    });
-});
+builder.Services.RegisterEasyNetQ("host=localhost;virtualHost=EasyNetQ");
 builder.Services.AddHostedService<DomainEventPublisher>();
 
 var app = builder.Build();
+
+var bus = app.Services.GetRequiredService<IBus>();
+bus.PubSub.Subscribe<PersonRenamed>("UpdateOwnersNames", p =>
+{
+});
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

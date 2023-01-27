@@ -1,7 +1,7 @@
 ﻿using Crm.Domain;
 using Crm.Infrastructure;
-using MassTransit;
-using System.Text.Json;
+using EasyNetQ;
+using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace Crm.Application.BackgroundServices
 {
@@ -49,7 +49,7 @@ namespace Crm.Application.BackgroundServices
                     storedEvent.EventBody, 
                     domainEventType);
 
-                await bus.Publish(domainEvent, stoppingToken);
+                bus.PubSub.Publish(domainEvent, stoppingToken);
                 await eventStore.Remove(storedEvent);
             }
         }
