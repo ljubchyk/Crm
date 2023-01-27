@@ -1,7 +1,6 @@
 using Crm.Application.BackgroundServices;
 using Crm.Application.EventHandlers;
 using Crm.Infrastructure;
-using MassTransit;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,14 +12,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddMassTransit(configurator =>
-{
-    configurator.AddConsumer<UpdateOwnersNames>();
-    configurator.UsingInMemory((context, cfg) =>
-    {
-        cfg.ConfigureEndpoints(context);
-    });
-});
+builder.Services.RegisterEasyNetQ("host=localhost;virtualHost=Crm");
 builder.Services.AddHostedService<DomainEventPublisher>();
 
 var app = builder.Build();
